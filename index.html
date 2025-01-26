@@ -104,7 +104,7 @@
         "   T  H H EEE   III N   N  T  EEE R  R N   N EEE  T   ",
       ];
 
-      if (z !== centerZ) return false;
+      if (z !== centerZ && z !== centerZ-1) return false;
 
       const textRow = textMap[y - centerY + Math.floor(textMap.length / 2)];
       if (!textRow) return false;
