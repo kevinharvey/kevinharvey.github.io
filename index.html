@@ -45,7 +45,8 @@
     const gridDepth = Math.floor(Math.random() * (maxDepth - 15)) + 15;
 
     // Define grid parameters
-    const segmentLength = 10; // Length of each segment
+    let segmentLength = 10; // Length of each segment
+    let zoomFactor = 1.0; // Initial zoom factor
 
     let isDragging = false;
     let startX, startY;
@@ -72,7 +73,7 @@
       let dx = x * cosY - dz * sinY;
       dz = x * sinY + dz * cosY;
 
-      const perspective = 1 / (1 + dz * 0.01);
+      const perspective = 1 / (1 + dz * 0.01 * zoomFactor);
       const screenX = canvas.width / 2 + dx * segmentLength * perspective;
       const screenY = canvas.height / 2 + dy * segmentLength * perspective;
 
@@ -104,7 +105,7 @@
         "   T  H H EEE   III N   N  T  EEE R  R N   N EEE  T   ",
       ];
 
-      if (z !== centerZ && z !== centerZ-1) return false;
+      if (z !== centerZ && z !== centerZ - 1) return false;
 
       const textRow = textMap[y - centerY + Math.floor(textMap.length / 2)];
       if (!textRow) return false;
@@ -173,6 +174,17 @@
       isDragging = false;
       prevRotationX = rotationX;
       prevRotationY = rotationY;
+    });
+
+    // Keyboard events for zooming
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowUp') {
+        zoomFactor = Math.min(zoomFactor + 0.5, 200.0); // Zoom in
+        draw3DGrid();
+      } else if (e.key === 'ArrowDown') {
+        zoomFactor = Math.max(zoomFactor - 0.5, 0.5); // Zoom out
+        draw3DGrid();
+      }
     });
 
     // Adjust canvas on resize
