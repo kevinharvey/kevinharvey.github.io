@@ -179,10 +179,10 @@
     // Keyboard events for zooming
     window.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowUp') {
-        zoomFactor = Math.min(zoomFactor + 0.5, 200.0); // Zoom in
+        zoomFactor = Math.min(zoomFactor + 0.1, 200.0); // Zoom in
         draw3DGrid();
       } else if (e.key === 'ArrowDown') {
-        zoomFactor = Math.max(zoomFactor - 0.5, 0.5); // Zoom out
+        zoomFactor = Math.max(zoomFactor - 0.1, 0.5); // Zoom out
         draw3DGrid();
       }
     });
